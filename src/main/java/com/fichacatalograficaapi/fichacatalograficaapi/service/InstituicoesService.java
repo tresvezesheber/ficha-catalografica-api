@@ -4,6 +4,7 @@ import com.fichacatalograficaapi.fichacatalograficaapi.model.Instituicao;
 import com.fichacatalograficaapi.fichacatalograficaapi.repository.InstituicoesRepository;
 import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.InstituicaoNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,14 +37,14 @@ public class InstituicoesService {
     public void deletar(Long id) {
         try {
             instituicoesRepository.deleteById(id);
-        } catch (InstituicaoNaoEncontradaException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new InstituicaoNaoEncontradaException("A instituição não pôde ser encontrada.");
         }
     }
 
     public void atualizar(Instituicao instituicao) {
         verificarExistencia(instituicao);
-        instituicoesRepository.delete(instituicao);
+        instituicoesRepository.save(instituicao);
     }
 
     public void verificarExistencia(Instituicao instituicao) {

@@ -27,13 +27,13 @@ public class Ficha {
 
     private boolean anexo;
 
-    @Transient
+    @ManyToOne
     private Titulacao titulacao;
 
-    @Transient
+    @ManyToOne
     private Instituicao instituicao;
 
-    @Transient
+    @ManyToOne
     private Curso curso;
 
     private String orientador;

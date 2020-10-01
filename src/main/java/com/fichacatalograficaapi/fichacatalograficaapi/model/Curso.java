@@ -11,7 +11,7 @@ public class Curso {
 
     private String nome;
 
-    @Transient
+    @ManyToOne
     private Instituicao instituicao;
 
 
