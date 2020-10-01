@@ -2,6 +2,8 @@ package com.fichacatalograficaapi.fichacatalograficaapi.controller;
 
 import com.fichacatalograficaapi.fichacatalograficaapi.model.Titulacao;
 import com.fichacatalograficaapi.fichacatalograficaapi.repository.TitulacoesRepository;
+import com.fichacatalograficaapi.fichacatalograficaapi.service.TitulacoesService;
+import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.TitulacaoNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -18,25 +20,26 @@ import java.util.Optional;
 public class TitulacaoController {
 
     @Autowired
-    private TitulacoesRepository titulacoesRepository;
+    private TitulacoesService titulacoesService;
 
     @GetMapping
     public ResponseEntity<List<Titulacao>> listar() {
-        return ResponseEntity.status(HttpStatus.OK).body(titulacoesRepository.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(titulacoesService.listar());
     }
 
     @PostMapping
     public ResponseEntity<Void> salvar(@RequestBody Titulacao titulacao) {
-        titulacao = titulacoesRepository.save(titulacao);
+        titulacao = titulacoesService.salvar(titulacao);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(titulacao.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscar(@PathVariable("id") Long id) {
-        Optional<Titulacao> titulacao = titulacoesRepository.findById(id);
-
-        if (!titulacao.isPresent()) {
+        Optional<Titulacao> titulacao = null;
+        try {
+            titulacao = titulacoesService.buscar(id);
+        } catch (TitulacaoNaoEncontradaException e) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body(titulacao);
@@ -45,16 +48,21 @@ public class TitulacaoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
         try {
-            titulacoesRepository.deleteById(id);
-        }catch (EmptyResultDataAccessException e) {
+            titulacoesService.deletar(id);
+        }catch (TitulacaoNaoEncontradaException e) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public void atualizar(@RequestBody Titulacao titulacao, @PathVariable("id") Long id) {
+    public ResponseEntity<Void> atualizar(@RequestBody Titulacao titulacao, @PathVariable("id") Long id) {
         titulacao.setId(id);
-        titulacoesRepository.save(titulacao);
+        try {
+            titulacoesService.atualizar(titulacao);
+        } catch (TitulacaoNaoEncontradaException e) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.noContent().build();
     }
 }
