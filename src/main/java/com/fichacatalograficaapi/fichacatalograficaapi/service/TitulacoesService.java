@@ -38,7 +38,7 @@ public class TitulacoesService {
     public void deletar(Long id) {
         try {
             titulacoesRepository.deleteById(id);
-        }catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new TitulacaoNaoEncontradaException("A titulação não pôde ser encontrada.");
         }
     }

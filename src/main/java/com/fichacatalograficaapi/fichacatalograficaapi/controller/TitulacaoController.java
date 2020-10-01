@@ -1,11 +1,8 @@
 package com.fichacatalograficaapi.fichacatalograficaapi.controller;
 
 import com.fichacatalograficaapi.fichacatalograficaapi.model.Titulacao;
-import com.fichacatalograficaapi.fichacatalograficaapi.repository.TitulacoesRepository;
 import com.fichacatalograficaapi.fichacatalograficaapi.service.TitulacoesService;
-import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.TitulacaoNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,17 +24,17 @@ public class TitulacaoController {
         return ResponseEntity.status(HttpStatus.OK).body(titulacoesService.listar());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscar(@PathVariable("id") Long id) {
+        Optional<Titulacao> titulacao = titulacoesService.buscar(id);
+        return ResponseEntity.status(HttpStatus.OK).body(titulacao);
+    }
+
     @PostMapping
     public ResponseEntity<Void> salvar(@RequestBody Titulacao titulacao) {
         titulacao = titulacoesService.salvar(titulacao);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(titulacao.getId()).toUri();
         return ResponseEntity.created(uri).build();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> buscar(@PathVariable("id") Long id) {
-        Optional<Titulacao> titulacao = titulacoesService.buscar(id);
-        return ResponseEntity.status(HttpStatus.OK).body(titulacao);
     }
 
     @DeleteMapping("/{id}")
