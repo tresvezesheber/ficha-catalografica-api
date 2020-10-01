@@ -36,33 +36,20 @@ public class TitulacaoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscar(@PathVariable("id") Long id) {
-        Optional<Titulacao> titulacao = null;
-        try {
-            titulacao = titulacoesService.buscar(id);
-        } catch (TitulacaoNaoEncontradaException e) {
-            return ResponseEntity.notFound().build();
-        }
+        Optional<Titulacao> titulacao = titulacoesService.buscar(id);
         return ResponseEntity.status(HttpStatus.OK).body(titulacao);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
-        try {
-            titulacoesService.deletar(id);
-        }catch (TitulacaoNaoEncontradaException e) {
-            return ResponseEntity.notFound().build();
-        }
+        titulacoesService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@RequestBody Titulacao titulacao, @PathVariable("id") Long id) {
         titulacao.setId(id);
-        try {
-            titulacoesService.atualizar(titulacao);
-        } catch (TitulacaoNaoEncontradaException e) {
-            return ResponseEntity.notFound().build();
-        }
+        titulacoesService.atualizar(titulacao);
         return ResponseEntity.noContent().build();
     }
 }
