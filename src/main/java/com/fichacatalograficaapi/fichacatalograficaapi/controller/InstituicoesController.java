@@ -37,16 +37,16 @@ public class InstituicoesController {
         return ResponseEntity.created(uri).build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
-        instituicoesService.deletar(id);
-        return ResponseEntity.noContent().build();
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@RequestBody Instituicao instituicao, @PathVariable("id") Long id) {
         instituicao.setId(id);
         instituicoesService.atualizar(instituicao);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
+        instituicoesService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }

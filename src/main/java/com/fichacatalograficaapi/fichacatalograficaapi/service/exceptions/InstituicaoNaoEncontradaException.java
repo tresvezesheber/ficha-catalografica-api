@@ -1,6 +1,6 @@
 package com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions;
 
-public class InstituicaoNaoEncontradaException extends RuntimeException{
+public class InstituicaoNaoEncontradaException extends RuntimeException {
 
     public InstituicaoNaoEncontradaException(String mensagem) {
         super(mensagem);

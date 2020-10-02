@@ -34,14 +34,6 @@ public class FichasService {
         return fichasRepository.save(ficha);
     }
 
-    public void deletar(Long id) {
-        try {
-            fichasRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new FichaNaoEncontradaException("A ficha não pôde ser encontrada.");
-        }
-    }
-
     public void atualizar(Ficha ficha) {
         verificarExistencia(ficha);
         fichasRepository.save(ficha);
@@ -49,5 +41,13 @@ public class FichasService {
 
     private void verificarExistencia(Ficha ficha) {
         buscar(ficha.getId());
+    }
+
+    public void deletar(Long id) {
+        try {
+            fichasRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new FichaNaoEncontradaException("A ficha não pôde ser encontrada.");
+        }
     }
 }

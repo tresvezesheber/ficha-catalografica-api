@@ -37,16 +37,16 @@ public class CursosController {
         return ResponseEntity.created(uri).build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
-        cursosService.deletar(id);
-        return ResponseEntity.noContent().build();
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@RequestBody Curso curso, @PathVariable Long id) {
         curso.setId(id);
         cursosService.atualizar(curso);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
+        cursosService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }

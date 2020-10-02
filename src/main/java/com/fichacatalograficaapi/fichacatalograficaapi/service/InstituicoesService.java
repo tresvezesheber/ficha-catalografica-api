@@ -34,14 +34,6 @@ public class InstituicoesService {
         return instituicoesRepository.save(instituicao);
     }
 
-    public void deletar(Long id) {
-        try {
-            instituicoesRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new InstituicaoNaoEncontradaException("A instituição não pôde ser encontrada.");
-        }
-    }
-
     public void atualizar(Instituicao instituicao) {
         verificarExistencia(instituicao);
         instituicoesRepository.save(instituicao);
@@ -49,5 +41,13 @@ public class InstituicoesService {
 
     public void verificarExistencia(Instituicao instituicao) {
         buscar(instituicao.getId());
+    }
+
+    public void deletar(Long id) {
+        try {
+            instituicoesRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new InstituicaoNaoEncontradaException("A instituição não pôde ser encontrada.");
+        }
     }
 }

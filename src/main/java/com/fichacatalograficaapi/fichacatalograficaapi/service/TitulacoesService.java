@@ -5,7 +5,6 @@ import com.fichacatalograficaapi.fichacatalograficaapi.repository.TitulacoesRepo
 import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.TitulacaoNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,14 +34,6 @@ public class TitulacoesService {
         return titulacoesRepository.save(titulacao);
     }
 
-    public void deletar(Long id) {
-        try {
-            titulacoesRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new TitulacaoNaoEncontradaException("A titulação não pôde ser encontrada.");
-        }
-    }
-
     public void atualizar(Titulacao titulacao) {
         verificarExistencia(titulacao);
         titulacoesRepository.save(titulacao);
@@ -50,5 +41,13 @@ public class TitulacoesService {
 
     private void verificarExistencia(Titulacao titulacao) {
         buscar(titulacao.getId());
+    }
+
+    public void deletar(Long id) {
+        try {
+            titulacoesRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new TitulacaoNaoEncontradaException("A titulação não pôde ser encontrada.");
+        }
     }
 }

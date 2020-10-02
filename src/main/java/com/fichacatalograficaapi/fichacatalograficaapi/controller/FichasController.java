@@ -37,12 +37,6 @@ public class FichasController {
         return ResponseEntity.created(uri).build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
-        fichasService.deletar(id);
-        return ResponseEntity.noContent().build();
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@RequestBody Ficha ficha, @PathVariable("id") Long id) {
         ficha.setId(id);
@@ -50,4 +44,9 @@ public class FichasController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
+        fichasService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 }

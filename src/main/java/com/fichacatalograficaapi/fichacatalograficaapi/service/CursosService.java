@@ -34,14 +34,6 @@ public class CursosService {
         return cursosRepository.save(curso);
     }
 
-    public void deletar(Long id) {
-        try {
-            cursosRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new CursoNaoEncontradoException("O curso não pôde ser encontrado.");
-        }
-    }
-
     public void atualizar(Curso curso) {
         verificarExistencia(curso);
         cursosRepository.save(curso);
@@ -49,5 +41,13 @@ public class CursosService {
 
     private void verificarExistencia(Curso curso) {
         buscar(curso.getId());
+    }
+
+    public void deletar(Long id) {
+        try {
+            cursosRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new CursoNaoEncontradoException("O curso não pôde ser encontrado.");
+        }
     }
 }

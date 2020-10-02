@@ -5,6 +5,7 @@ import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.CursoN
 import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.FichaNaoEncontradaException;
 import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.InstituicaoNaoEncontradaException;
 import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.TitulacaoNaoEncontradaException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,26 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
-
-    @ExceptionHandler(TitulacaoNaoEncontradaException.class)
-    public ResponseEntity<ErroDetalhes> handleTitulacaoNaoEncontradaException(TitulacaoNaoEncontradaException e, HttpServletRequest request) {
-        ErroDetalhes erroDetalhes = new ErroDetalhes();
-        erroDetalhes.setTitulo("A titulação não pôde ser encontrada.");
-        erroDetalhes.setStatus(404l);
-        erroDetalhes.setTimeStamp(System.currentTimeMillis());
-        erroDetalhes.setMensagemDesenvolvedor("http://erros.fichacatalografica.com/404");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDetalhes);
-    }
-
-    @ExceptionHandler(CursoNaoEncontradoException.class)
-    public ResponseEntity<ErroDetalhes> handleCursoNaoEncontradoException(CursoNaoEncontradoException e, HttpServletRequest request) {
-        ErroDetalhes erroDetalhes = new ErroDetalhes();
-        erroDetalhes.setTitulo("O curso não pôde ser encontrado.");
-        erroDetalhes.setStatus(404l);
-        erroDetalhes.setTimeStamp(System.currentTimeMillis());
-        erroDetalhes.setMensagemDesenvolvedor("http://erros.fichacatalografica.com/404");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDetalhes);
-    }
 
     @ExceptionHandler(FichaNaoEncontradaException.class)
     public ResponseEntity<ErroDetalhes> handleFichaNaoEncontradaException(FichaNaoEncontradaException e, HttpServletRequest request) {
@@ -53,5 +34,35 @@ public class ResourceExceptionHandler {
         erroDetalhes.setTimeStamp(System.currentTimeMillis());
         erroDetalhes.setMensagemDesenvolvedor("htttp://erros.fichacatalografica.com/404");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDetalhes);
+    }
+
+    @ExceptionHandler(CursoNaoEncontradoException.class)
+    public ResponseEntity<ErroDetalhes> handleCursoNaoEncontradoException(CursoNaoEncontradoException e, HttpServletRequest request) {
+        ErroDetalhes erroDetalhes = new ErroDetalhes();
+        erroDetalhes.setTitulo("O curso não pôde ser encontrado.");
+        erroDetalhes.setStatus(404l);
+        erroDetalhes.setTimeStamp(System.currentTimeMillis());
+        erroDetalhes.setMensagemDesenvolvedor("http://erros.fichacatalografica.com/404");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDetalhes);
+    }
+
+    @ExceptionHandler(TitulacaoNaoEncontradaException.class)
+    public ResponseEntity<ErroDetalhes> handleTitulacaoNaoEncontradaException(TitulacaoNaoEncontradaException e, HttpServletRequest request) {
+        ErroDetalhes erroDetalhes = new ErroDetalhes();
+        erroDetalhes.setTitulo("A titulação não pôde ser encontrada.");
+        erroDetalhes.setStatus(404l);
+        erroDetalhes.setTimeStamp(System.currentTimeMillis());
+        erroDetalhes.setMensagemDesenvolvedor("http://erros.fichacatalografica.com/404");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDetalhes);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErroDetalhes> handleRequisicaoInvalidaException(DataIntegrityViolationException e, HttpServletRequest request){
+        ErroDetalhes erroDetalhes = new ErroDetalhes();
+        erroDetalhes.setTitulo("Requsição inválida.");
+        erroDetalhes.setStatus(400l);
+        erroDetalhes.setTimeStamp(System.currentTimeMillis());
+        erroDetalhes.setMensagemDesenvolvedor("http://erros.fichacatalografica.com/400");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDetalhes);
     }
 }

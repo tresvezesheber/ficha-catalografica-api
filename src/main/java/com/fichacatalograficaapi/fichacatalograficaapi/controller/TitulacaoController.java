@@ -37,16 +37,16 @@ public class TitulacaoController {
         return ResponseEntity.created(uri).build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
-        titulacoesService.deletar(id);
-        return ResponseEntity.noContent().build();
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizar(@RequestBody Titulacao titulacao, @PathVariable("id") Long id) {
         titulacao.setId(id);
         titulacoesService.atualizar(titulacao);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
+        titulacoesService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 }
