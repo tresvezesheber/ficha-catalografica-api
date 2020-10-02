@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public class CursosController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> salvar(@RequestBody Curso curso) {
+    public ResponseEntity<Void> salvar(@Valid @RequestBody Curso curso) {
         curso = cursosService.salvar(curso);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(curso.getId()).toUri();
         return ResponseEntity.created(uri).build();

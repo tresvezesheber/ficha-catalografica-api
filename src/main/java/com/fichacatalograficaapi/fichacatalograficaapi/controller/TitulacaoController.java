@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public class TitulacaoController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> salvar(@RequestBody Titulacao titulacao) {
+    public ResponseEntity<Void> salvar(@Valid @RequestBody Titulacao titulacao) {
         titulacao = titulacoesService.salvar(titulacao);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(titulacao.getId()).toUri();
         return ResponseEntity.created(uri).build();

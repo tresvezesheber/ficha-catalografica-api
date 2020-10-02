@@ -1,6 +1,8 @@
 package com.fichacatalograficaapi.fichacatalograficaapi.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Curso {
@@ -9,9 +11,11 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "O campo nome não pode ser vazio.")
     private String nome;
 
     @ManyToOne
+    @NotNull(message = "É preciso informar a instituição.")
     private Instituicao instituicao;
 
 

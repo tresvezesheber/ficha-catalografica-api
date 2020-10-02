@@ -1,5 +1,8 @@
 package com.fichacatalograficaapi.fichacatalograficaapi.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.lang.NonNull;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +15,7 @@ public class Instituicao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "O campo nome não pode ser vazio.")
     private String nome;
 
 

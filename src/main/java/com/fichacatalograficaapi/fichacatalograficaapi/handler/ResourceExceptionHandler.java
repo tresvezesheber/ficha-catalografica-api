@@ -5,16 +5,23 @@ import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.CursoN
 import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.FichaNaoEncontradaException;
 import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.InstituicaoNaoEncontradaException;
 import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.TitulacaoNaoEncontradaException;
+import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
+
+    private MessageSource messageSource;
+
 
     @ExceptionHandler(FichaNaoEncontradaException.class)
     public ResponseEntity<ErroDetalhes> handleFichaNaoEncontradaException(FichaNaoEncontradaException e, HttpServletRequest request) {
@@ -57,12 +64,28 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ErroDetalhes> handleRequisicaoInvalidaException(DataIntegrityViolationException e, HttpServletRequest request){
+    public ResponseEntity<ErroDetalhes> handleRequisicaoInvalidaException(DataIntegrityViolationException e, HttpServletRequest request) {
         ErroDetalhes erroDetalhes = new ErroDetalhes();
         erroDetalhes.setTitulo("Requsição inválida.");
         erroDetalhes.setStatus(400l);
         erroDetalhes.setTimeStamp(System.currentTimeMillis());
         erroDetalhes.setMensagemDesenvolvedor("http://erros.fichacatalografica.com/400");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDetalhes);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<List<ErroDetalhes>> handleValidacaoDeAtributoException(MethodArgumentNotValidException e, HttpServletRequest request) {
+        List<ErroDetalhes> erroDetalhesList = new ArrayList<ErroDetalhes>();
+
+        e.getBindingResult().getAllErrors().forEach((error) -> {
+//            String fieldName = ((FieldError) error).getField();
+            ErroDetalhes erroDetalhes = new ErroDetalhes();
+            erroDetalhes.setTitulo(error.getDefaultMessage());
+            erroDetalhes.setStatus(400l);
+            erroDetalhes.setTimeStamp(System.currentTimeMillis());
+            erroDetalhes.setMensagemDesenvolvedor("http://erros.fichacatalografica.com/400");
+            erroDetalhesList.add(erroDetalhes);
+        });
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroDetalhesList);
     }
 }
