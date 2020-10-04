@@ -1,27 +1,33 @@
 package com.fichacatalograficaapi.fichacatalograficaapi.handler;
 
 import com.fichacatalograficaapi.fichacatalograficaapi.model.ErroDetalhes;
-import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.CursoNaoEncontradoException;
-import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.FichaNaoEncontradaException;
-import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.InstituicaoNaoEncontradaException;
-import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.TitulacaoNaoEncontradaException;
+import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.*;
 import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
     private MessageSource messageSource;
 
+    @ExceptionHandler(UsuarioNaoEncontradoException.class)
+    public ResponseEntity<ErroDetalhes> handleUsuarioNaoEncontradoException(UsuarioNaoEncontradoException e, HttpServletRequest request) {
+        ErroDetalhes erroDetalhes = new ErroDetalhes();
+        erroDetalhes.setTitulo("O usuário não pôde ser encontrado.");
+        erroDetalhes.setStatus(404l);
+        erroDetalhes.setTimeStamp(System.currentTimeMillis());
+        erroDetalhes.setMensagemDesenvolvedor("http://erros.fichacatalografica.com/404");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroDetalhes);
+    }
 
     @ExceptionHandler(FichaNaoEncontradaException.class)
     public ResponseEntity<ErroDetalhes> handleFichaNaoEncontradaException(FichaNaoEncontradaException e, HttpServletRequest request) {
