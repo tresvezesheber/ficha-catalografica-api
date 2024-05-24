@@ -37,17 +37,4 @@ public class FichasController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(ficha.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizar(@RequestBody Ficha ficha, @PathVariable("id") Long id) {
-        ficha.setId(id);
-        fichasService.atualizar(ficha);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
-        fichasService.deletar(id);
-        return ResponseEntity.noContent().build();
-    }
 }

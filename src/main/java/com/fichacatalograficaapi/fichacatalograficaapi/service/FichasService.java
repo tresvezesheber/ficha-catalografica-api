@@ -30,24 +30,6 @@ public class FichasService {
     }
 
     public Ficha salvar(Ficha ficha) {
-        ficha.setId(null);
         return fichasRepository.save(ficha);
-    }
-
-    public void atualizar(Ficha ficha) {
-        verificarExistencia(ficha);
-        fichasRepository.save(ficha);
-    }
-
-    private void verificarExistencia(Ficha ficha) {
-        buscar(ficha.getId());
-    }
-
-    public void deletar(Long id) {
-        try {
-            fichasRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new FichaNaoEncontradaException("A ficha não pôde ser encontrada.");
-        }
     }
 }
