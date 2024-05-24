@@ -2,6 +2,7 @@ package com.fichacatalograficaapi.fichacatalograficaapi.handler;
 
 import com.fichacatalograficaapi.fichacatalograficaapi.model.ErroDetalhes;
 import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
