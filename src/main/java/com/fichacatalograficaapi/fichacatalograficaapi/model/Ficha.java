@@ -1,6 +1,9 @@
 package com.fichacatalograficaapi.fichacatalograficaapi.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -19,6 +22,9 @@ public class Ficha {
 
     @NotEmpty(message = "O campo subtítulo não pode ser vazio.")
     private String subtitulo;
+
+    @NotEmpty(message = "O campo cidade deve ser preenchido.")
+    private String cidade;
 
     @NotEmpty(message = "O campo ano deve ser preenchido.")
     private String ano;
@@ -59,11 +65,11 @@ public class Ficha {
     public Ficha() {
     }
 
-    public Ficha(String autor, String titulo, String subtitulo, String ano, String numeroPaginaPre, String numeroPaginaTotal, boolean ilustracao, boolean bibliografia, boolean anexo, MonografiaTitulacao monografiaTitulacao, String instituicao, String curso, String orientador, String coorientador, String palavrasChave) {
-        this.id = id;
+    public Ficha(String autor, String titulo, String subtitulo, String cidade, String ano, String numeroPaginaPre, String numeroPaginaTotal, boolean ilustracao, boolean bibliografia, boolean anexo, MonografiaTitulacao monografiaTitulacao, String instituicao, String curso, String orientador, String coorientador, String palavrasChave) {
         this.autor = autor;
         this.titulo = titulo;
         this.subtitulo = subtitulo;
+        this.cidade = cidade;
         this.ano = ano;
         this.numeroPaginaPre = numeroPaginaPre;
         this.numeroPaginaTotal = numeroPaginaTotal;
@@ -108,6 +114,14 @@ public class Ficha {
 
     public void setSubtitulo(String subtitulo) {
         this.subtitulo = subtitulo;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade() {
+        this.cidade = cidade;
     }
 
     public String getAno() {
