@@ -25,8 +25,8 @@ public class CriadorFichaPdf {
                 contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 10);
 
                 float margin = 72;
-                float yInicio = page.getMediaBox().getHeight() - margin;
-                float larguraDoRetangulo = page.getMediaBox().getWidth() - 2 * margin;
+                float yInicio = 300;
+                float larguraDoRetangulo = 360;
                 float yPosicao = yInicio;
                 float bottomMargin = 72;
                 int totalDeLinhas = 0;
@@ -54,20 +54,27 @@ public class CriadorFichaPdf {
                 }
 
                 for (List<String> linha : linhasTratadas) {
-                    totalDeLinhas += linha.size();
+                    for (String l : linha) {
+                        totalDeLinhas += linha.size();
+                    }
                 }
 
                 contentStream.setLineWidth(1f);
-                contentStream.addRect(margin, yPosicao - totalDeLinhas * 15, larguraDoRetangulo, totalDeLinhas * 15 + 15);
+                contentStream.addRect(margin, yPosicao - totalDeLinhas * 12, larguraDoRetangulo, totalDeLinhas * 12 + 12);
                 contentStream.stroke();
 
                 contentStream.beginText();
-                contentStream.newLineAtOffset(margin, yPosicao);
-                for (List<String> linha : linhasTratadas) {
+                contentStream.newLineAtOffset(margin + 40, yPosicao - 4);
+                for (int i = 0; i < linhasTratadas.size(); i++) {
+                    List<String> linha = linhasTratadas.get(i);
                     for (String l : linha) {
                         contentStream.showText(l);
-                        yPosicao -= 15;
-                        contentStream.newLineAtOffset(0, -15);
+                        yPosicao -= 12;
+                        contentStream.newLineAtOffset(0, -12);
+                    }
+                    if (i == 2 || i == 5) {
+                        yPosicao -= 12; // Adiciona um espaço de linha em branco
+                        contentStream.newLineAtOffset(0, -12);
                     }
                 }
                 contentStream.endText();
