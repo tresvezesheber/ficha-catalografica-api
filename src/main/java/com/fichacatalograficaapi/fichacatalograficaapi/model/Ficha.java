@@ -1,6 +1,9 @@
 package com.fichacatalograficaapi.fichacatalograficaapi.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -20,13 +23,16 @@ public class Ficha {
     @NotEmpty(message = "O campo subtítulo não pode ser vazio.")
     private String subtitulo;
 
-    @NotNull(message = "O campo ano deve ser preenchido.")
+    @NotEmpty(message = "O campo cidade deve ser preenchido.")
+    private String cidade;
+
+    @NotEmpty(message = "O campo ano deve ser preenchido.")
     private String ano;
 
-    @NotNull(message = "O campo número de páginas pré-textual deve ser preenchido.")
+    @NotEmpty(message = "O campo número de páginas pré-textual deve ser preenchido.")
     private String numeroPaginaPre;
 
-    @NotNull(message = "O campo número total de páginas deve ser preenchido.")
+    @NotEmpty(message = "O campo número total de páginas deve ser preenchido.")
     private String numeroPaginaTotal;
 
     @NotNull(message = "O ilustração ano deve ser preenchido.")
@@ -38,17 +44,14 @@ public class Ficha {
     @NotNull(message = "O campo anexo deve ser preenchido.")
     private boolean anexo;
 
-    @ManyToOne
-    @NotNull(message = "O campo titulação deve ser preenchido.")
-    private Titulacao titulacao;
+    @NotNull(message = "O campo monografia/titulação deve ser preenchido.")
+    private MonografiaTitulacao monografiaTitulacao;
 
-    @ManyToOne
-    @NotNull(message = "O campo instituição deve ser preenchido.")
-    private Instituicao instituicao;
+    @NotEmpty(message = "O campo instituição deve ser preenchido.")
+    private String instituicao;
 
-    @ManyToOne
-    @NotNull(message = "O campo curso deve ser preenchido.")
-    private Curso curso;
+    @NotEmpty(message = "O campo curso deve ser preenchido.")
+    private String curso;
 
     @NotEmpty(message = "O campo orientador deve ser preenchido.")
     private String orientador;
@@ -59,13 +62,26 @@ public class Ficha {
     @NotEmpty(message = "O campo palavras chave deve ser preenchido.")
     private String palavrasChave;
 
-
     public Ficha() {
-
     }
 
-    public Ficha(String autor) {
+    public Ficha(String autor, String titulo, String subtitulo, String cidade, String ano, String numeroPaginaPre, String numeroPaginaTotal, boolean ilustracao, boolean bibliografia, boolean anexo, MonografiaTitulacao monografiaTitulacao, String instituicao, String curso, String orientador, String coorientador, String palavrasChave) {
         this.autor = autor;
+        this.titulo = titulo;
+        this.subtitulo = subtitulo;
+        this.cidade = cidade;
+        this.ano = ano;
+        this.numeroPaginaPre = numeroPaginaPre;
+        this.numeroPaginaTotal = numeroPaginaTotal;
+        this.ilustracao = ilustracao;
+        this.bibliografia = bibliografia;
+        this.anexo = anexo;
+        this.monografiaTitulacao = monografiaTitulacao;
+        this.instituicao = instituicao;
+        this.curso = curso;
+        this.orientador = orientador;
+        this.coorientador = coorientador;
+        this.palavrasChave = palavrasChave;
     }
 
     public Long getId() {
@@ -98,6 +114,14 @@ public class Ficha {
 
     public void setSubtitulo(String subtitulo) {
         this.subtitulo = subtitulo;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade() {
+        this.cidade = cidade;
     }
 
     public String getAno() {
@@ -148,27 +172,27 @@ public class Ficha {
         this.anexo = anexo;
     }
 
-    public Titulacao getTitulacao() {
-        return titulacao;
+    public MonografiaTitulacao getMonografiaTitulacao() {
+        return monografiaTitulacao;
     }
 
-    public void setTitulacao(Titulacao titulacao) {
-        this.titulacao = titulacao;
+    public void setMonografiaTitulacao(MonografiaTitulacao monografiaTitulacao) {
+        this.monografiaTitulacao = monografiaTitulacao;
     }
 
-    public Instituicao getInstituicao() {
+    public String getInstituicao() {
         return instituicao;
     }
 
-    public void setInstituicao(Instituicao instituicao) {
+    public void setInstituicao(String instituicao) {
         this.instituicao = instituicao;
     }
 
-    public Curso getCurso() {
+    public String getCurso() {
         return curso;
     }
 
-    public void setCurso(Curso curso) {
+    public void setCurso(String curso) {
         this.curso = curso;
     }
 
