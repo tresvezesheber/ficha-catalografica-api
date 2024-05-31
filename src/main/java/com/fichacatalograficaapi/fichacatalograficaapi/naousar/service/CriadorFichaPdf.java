@@ -1,6 +1,6 @@
-package com.fichacatalograficaapi.fichacatalograficaapi.service;
+package com.fichacatalograficaapi.fichacatalograficaapi.naousar.service;
 
-import com.fichacatalograficaapi.fichacatalograficaapi.model.Ficha;
+import com.fichacatalograficaapi.fichacatalograficaapi.naousar.model.Ficha;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;

@@ -1,4 +1,4 @@
-package com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions;
+package com.fichacatalograficaapi.fichacatalograficaapi.naousar.service.exceptions;
 
 public class FichaNaoEncontradaException extends RuntimeException {
 

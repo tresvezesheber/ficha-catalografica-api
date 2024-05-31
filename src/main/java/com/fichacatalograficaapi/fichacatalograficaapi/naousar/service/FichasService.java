@@ -1,10 +1,9 @@
-package com.fichacatalograficaapi.fichacatalograficaapi.service;
+package com.fichacatalograficaapi.fichacatalograficaapi.naousar.service;
 
-import com.fichacatalograficaapi.fichacatalograficaapi.model.Ficha;
-import com.fichacatalograficaapi.fichacatalograficaapi.repository.FichasRepository;
-import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.FichaNaoEncontradaException;
+import com.fichacatalograficaapi.fichacatalograficaapi.naousar.model.Ficha;
+import com.fichacatalograficaapi.fichacatalograficaapi.naousar.service.exceptions.FichaNaoEncontradaException;
+import com.fichacatalograficaapi.fichacatalograficaapi.naousar.repository.FichasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

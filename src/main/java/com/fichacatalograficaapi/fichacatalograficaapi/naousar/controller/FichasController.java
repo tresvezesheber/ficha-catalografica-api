@@ -1,8 +1,8 @@
-package com.fichacatalograficaapi.fichacatalograficaapi.controller;
+package com.fichacatalograficaapi.fichacatalograficaapi.naousar.controller;
 
-import com.fichacatalograficaapi.fichacatalograficaapi.model.Ficha;
-import com.fichacatalograficaapi.fichacatalograficaapi.service.CriadorFichaPdf;
-import com.fichacatalograficaapi.fichacatalograficaapi.service.FichasService;
+import com.fichacatalograficaapi.fichacatalograficaapi.naousar.model.Ficha;
+import com.fichacatalograficaapi.fichacatalograficaapi.naousar.service.CriadorFichaPdf;
+import com.fichacatalograficaapi.fichacatalograficaapi.naousar.service.FichasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;

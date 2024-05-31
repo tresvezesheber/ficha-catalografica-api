@@ -1,4 +1,4 @@
-package com.fichacatalograficaapi.fichacatalograficaapi.model;
+package com.fichacatalograficaapi.fichacatalograficaapi.naousar.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

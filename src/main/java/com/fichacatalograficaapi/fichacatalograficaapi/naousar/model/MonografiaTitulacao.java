@@ -1,4 +1,4 @@
-package com.fichacatalograficaapi.fichacatalograficaapi.model;
+package com.fichacatalograficaapi.fichacatalograficaapi.naousar.model;
 
 public enum MonografiaTitulacao {
 

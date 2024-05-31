@@ -1,7 +1,7 @@
-package com.fichacatalograficaapi.fichacatalograficaapi.handler;
+package com.fichacatalograficaapi.fichacatalograficaapi.naousar.handler;
 
-import com.fichacatalograficaapi.fichacatalograficaapi.model.ErroDetalhes;
-import com.fichacatalograficaapi.fichacatalograficaapi.service.exceptions.FichaNaoEncontradaException;
+import com.fichacatalograficaapi.fichacatalograficaapi.naousar.model.ErroDetalhes;
+import com.fichacatalograficaapi.fichacatalograficaapi.naousar.service.exceptions.FichaNaoEncontradaException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
