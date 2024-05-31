@@ -15,11 +15,11 @@ public class Ficha {
 
     private String numeroPaginaTotal;
 
-    private boolean ilustracao;
+    private Boolean ilustracao;
 
-    private boolean bibliografia;
+    private Boolean bibliografia;
 
-    private boolean anexo;
+    private Boolean anexo;
 
     private MonografiaTitulacao monografiaTitulacao;
 
@@ -33,42 +33,45 @@ public class Ficha {
 
     private String palavrasChave;
 
-    public Ficha(String autor, String titulo, String subtitulo, String cidade, String ano, String numeroPaginaPre, String numeroPaginaTotal, boolean ilustracao, boolean bibliografia, boolean anexo, MonografiaTitulacao monografiaTitulacao, String instituicao, String curso, String orientador, String coorientador, String palavrasChave) {
-        this.autor = autor;
-        this.titulo = titulo;
+    public Ficha(String autor, String titulo, String subtitulo, String cidade, String ano, String numeroPaginaPre, String numeroPaginaTotal, Boolean ilustracao, Boolean bibliografia, Boolean anexo, MonografiaTitulacao monografiaTitulacao, String instituicao, String curso, String orientador, String coorientador, String palavrasChave) {
+        this.autor = verificaSeEstaVazio(autor);
+        this.titulo = verificaSeEstaVazio(titulo);
         this.subtitulo = subtitulo;
-        this.cidade = cidade;
-        this.ano = ano;
-        this.numeroPaginaPre = numeroPaginaPre;
-        this.numeroPaginaTotal = numeroPaginaTotal;
-        this.ilustracao = ilustracao;
-        this.bibliografia = bibliografia;
-        this.anexo = anexo;
-        this.monografiaTitulacao = monografiaTitulacao;
-        this.instituicao = instituicao;
-        this.curso = curso;
-        this.orientador = orientador;
+        this.cidade = verificaSeEstaVazio(cidade);
+        this.ano = verificaSeEstaVazio(ano);
+        this.numeroPaginaPre = verificaSeEstaVazio(numeroPaginaPre);
+        this.numeroPaginaTotal = verificaSeEstaVazio(numeroPaginaTotal);
+        this.ilustracao = (Boolean) verificaSeEstaNulo(ilustracao);
+        this.bibliografia = (Boolean) verificaSeEstaNulo(bibliografia);
+        this.anexo = (Boolean) verificaSeEstaNulo(anexo);
+        this.monografiaTitulacao = (MonografiaTitulacao) verificaSeEstaNulo(monografiaTitulacao);
+        this.instituicao = verificaSeEstaVazio(instituicao);
+        this.curso = verificaSeEstaVazio(curso);
+        this.orientador = verificaSeEstaVazio(orientador);
         this.coorientador = coorientador;
-        this.palavrasChave = palavrasChave;
+        this.palavrasChave = verificarNumeroMinimoDePalavrasChave(palavrasChave, 3);
     }
 
-    public void verificaSeEstaVazio(String campo) {
+    public String verificaSeEstaVazio(String campo) {
         verificaSeEstaNulo(campo);
         if (campo.isEmpty()) {
             throw new IllegalArgumentException(campo + " não pode estar vazio");
         }
+        return campo;
     }
 
-    public void verificaSeEstaNulo(Object campo) {
+    public Object verificaSeEstaNulo(Object campo) {
         if (campo == null) {
             throw new IllegalArgumentException(campo + " não pode estar nulo");
         }
+        return campo;
     }
 
-    public void verificarNumeroMinimoDePalavrasChave(int quantidade) {
-        if (this.palavrasChave.split(",").length < quantidade) {
+    public String verificarNumeroMinimoDePalavrasChave(String palavrasChave, int quantidade) {
+        if (palavrasChave.split(",").length < quantidade) {
             throw new IllegalArgumentException("O campo palavras chave deve conter no mínimo " + quantidade + " palavras chave");
         }
+        return palavrasChave;
     }
 
     public String getAutor() {
@@ -76,7 +79,6 @@ public class Ficha {
     }
 
     public void setAutor(String autor) {
-        verificaSeEstaVazio(autor);
         this.autor = autor;
     }
 
@@ -85,7 +87,6 @@ public class Ficha {
     }
 
     public void setTitulo(String titulo) {
-        verificaSeEstaVazio(titulo);
         this.titulo = titulo;
     }
 
@@ -102,7 +103,6 @@ public class Ficha {
     }
 
     public void setCidade(String cidade) {
-        verificaSeEstaVazio(cidade);
         this.cidade = cidade;
     }
 
@@ -111,7 +111,6 @@ public class Ficha {
     }
 
     public void setAno(String ano) {
-        verificaSeEstaVazio(ano);
         this.ano = ano;
     }
 
@@ -120,7 +119,6 @@ public class Ficha {
     }
 
     public void setNumeroPaginaPre(String numeroPaginaPre) {
-        verificaSeEstaVazio(numeroPaginaPre);
         this.numeroPaginaPre = numeroPaginaPre;
     }
 
@@ -129,34 +127,30 @@ public class Ficha {
     }
 
     public void setNumeroPaginaTotal(String numeroPaginaTotal) {
-        verificaSeEstaVazio(numeroPaginaTotal);
         this.numeroPaginaTotal = numeroPaginaTotal;
     }
 
-    public boolean isIlustracao() {
+    public Boolean getIlustracao() {
         return ilustracao;
     }
 
-    public void setIlustracao(boolean ilustracao) {
-        verificaSeEstaNulo(ilustracao);
+    public void setIlustracao(Boolean ilustracao) {
         this.ilustracao = ilustracao;
     }
 
-    public boolean isBibliografia() {
+    public Boolean getBibliografia() {
         return bibliografia;
     }
 
-    public void setBibliografia(boolean bibliografia) {
-        verificaSeEstaNulo(bibliografia);
+    public void setBibliografia(Boolean bibliografia) {
         this.bibliografia = bibliografia;
     }
 
-    public boolean isAnexo() {
+    public Boolean getAnexo() {
         return anexo;
     }
 
-    public void setAnexo(boolean anexo) {
-        verificaSeEstaNulo(anexo);
+    public void setAnexo(Boolean anexo) {
         this.anexo = anexo;
     }
 
@@ -165,7 +159,6 @@ public class Ficha {
     }
 
     public void setMonografiaTitulacao(MonografiaTitulacao monografiaTitulacao) {
-        verificaSeEstaNulo(monografiaTitulacao);
         this.monografiaTitulacao = monografiaTitulacao;
     }
 
@@ -174,7 +167,6 @@ public class Ficha {
     }
 
     public void setInstituicao(String instituicao) {
-        verificaSeEstaVazio(instituicao);
         this.instituicao = instituicao;
     }
 
@@ -183,7 +175,6 @@ public class Ficha {
     }
 
     public void setCurso(String curso) {
-        verificaSeEstaVazio(curso);
         this.curso = curso;
     }
 
@@ -192,7 +183,6 @@ public class Ficha {
     }
 
     public void setOrientador(String orientador) {
-        verificaSeEstaVazio(orientador);
         this.orientador = orientador;
     }
 
@@ -209,8 +199,6 @@ public class Ficha {
     }
 
     public void setPalavrasChave(String palavrasChave) {
-        verificaSeEstaVazio(palavrasChave);
-        verificarNumeroMinimoDePalavrasChave(3);
         this.palavrasChave = palavrasChave;
     }
 }
