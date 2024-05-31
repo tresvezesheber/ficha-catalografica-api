@@ -33,12 +33,42 @@ public class Ficha {
 
     private String palavrasChave;
 
-    public String getNumeroPaginaTotal() {
-        return numeroPaginaTotal;
+    public Ficha(String autor, String titulo, String subtitulo, String cidade, String ano, String numeroPaginaPre, String numeroPaginaTotal, boolean ilustracao, boolean bibliografia, boolean anexo, MonografiaTitulacao monografiaTitulacao, String instituicao, String curso, String orientador, String coorientador, String palavrasChave) {
+        this.autor = autor;
+        this.titulo = titulo;
+        this.subtitulo = subtitulo;
+        this.cidade = cidade;
+        this.ano = ano;
+        this.numeroPaginaPre = numeroPaginaPre;
+        this.numeroPaginaTotal = numeroPaginaTotal;
+        this.ilustracao = ilustracao;
+        this.bibliografia = bibliografia;
+        this.anexo = anexo;
+        this.monografiaTitulacao = monografiaTitulacao;
+        this.instituicao = instituicao;
+        this.curso = curso;
+        this.orientador = orientador;
+        this.coorientador = coorientador;
+        this.palavrasChave = palavrasChave;
     }
 
-    public void setNumeroPaginaTotal(String numeroPaginaTotal) {
-        this.numeroPaginaTotal = numeroPaginaTotal;
+    public void verificaSeEstaVazio(String campo) {
+        verificaSeEstaNulo(campo);
+        if (campo.isEmpty()) {
+            throw new IllegalArgumentException(campo + " não pode estar vazio");
+        }
+    }
+
+    public void verificaSeEstaNulo(Object campo) {
+        if (campo == null) {
+            throw new IllegalArgumentException(campo + " não pode estar nulo");
+        }
+    }
+
+    public void verificarNumeroMinimoDePalavrasChave(int quantidade) {
+        if (this.palavrasChave.split(",").length < quantidade) {
+            throw new IllegalArgumentException("O campo palavras chave deve conter no mínimo " + quantidade + " palavras chave");
+        }
     }
 
     public String getAutor() {
@@ -46,6 +76,7 @@ public class Ficha {
     }
 
     public void setAutor(String autor) {
+        verificaSeEstaVazio(autor);
         this.autor = autor;
     }
 
@@ -54,6 +85,7 @@ public class Ficha {
     }
 
     public void setTitulo(String titulo) {
+        verificaSeEstaVazio(titulo);
         this.titulo = titulo;
     }
 
@@ -70,6 +102,7 @@ public class Ficha {
     }
 
     public void setCidade(String cidade) {
+        verificaSeEstaVazio(cidade);
         this.cidade = cidade;
     }
 
@@ -78,6 +111,7 @@ public class Ficha {
     }
 
     public void setAno(String ano) {
+        verificaSeEstaVazio(ano);
         this.ano = ano;
     }
 
@@ -86,7 +120,17 @@ public class Ficha {
     }
 
     public void setNumeroPaginaPre(String numeroPaginaPre) {
+        verificaSeEstaVazio(numeroPaginaPre);
         this.numeroPaginaPre = numeroPaginaPre;
+    }
+
+    public String getNumeroPaginaTotal() {
+        return numeroPaginaTotal;
+    }
+
+    public void setNumeroPaginaTotal(String numeroPaginaTotal) {
+        verificaSeEstaVazio(numeroPaginaTotal);
+        this.numeroPaginaTotal = numeroPaginaTotal;
     }
 
     public boolean isIlustracao() {
@@ -94,6 +138,7 @@ public class Ficha {
     }
 
     public void setIlustracao(boolean ilustracao) {
+        verificaSeEstaNulo(ilustracao);
         this.ilustracao = ilustracao;
     }
 
@@ -102,6 +147,7 @@ public class Ficha {
     }
 
     public void setBibliografia(boolean bibliografia) {
+        verificaSeEstaNulo(bibliografia);
         this.bibliografia = bibliografia;
     }
 
@@ -110,6 +156,7 @@ public class Ficha {
     }
 
     public void setAnexo(boolean anexo) {
+        verificaSeEstaNulo(anexo);
         this.anexo = anexo;
     }
 
@@ -118,6 +165,7 @@ public class Ficha {
     }
 
     public void setMonografiaTitulacao(MonografiaTitulacao monografiaTitulacao) {
+        verificaSeEstaNulo(monografiaTitulacao);
         this.monografiaTitulacao = monografiaTitulacao;
     }
 
@@ -126,6 +174,7 @@ public class Ficha {
     }
 
     public void setInstituicao(String instituicao) {
+        verificaSeEstaVazio(instituicao);
         this.instituicao = instituicao;
     }
 
@@ -134,6 +183,7 @@ public class Ficha {
     }
 
     public void setCurso(String curso) {
+        verificaSeEstaVazio(curso);
         this.curso = curso;
     }
 
@@ -142,6 +192,7 @@ public class Ficha {
     }
 
     public void setOrientador(String orientador) {
+        verificaSeEstaVazio(orientador);
         this.orientador = orientador;
     }
 
@@ -158,6 +209,8 @@ public class Ficha {
     }
 
     public void setPalavrasChave(String palavrasChave) {
+        verificaSeEstaVazio(palavrasChave);
+        verificarNumeroMinimoDePalavrasChave(3);
         this.palavrasChave = palavrasChave;
     }
 }
