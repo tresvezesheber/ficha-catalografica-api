@@ -1,5 +1,6 @@
 package com.fichacatalograficaapi.fichacatalograficaapi.infra.controller;
 
+import com.fichacatalograficaapi.fichacatalograficaapi.application.usecases.BuscarFicha;
 import com.fichacatalograficaapi.fichacatalograficaapi.application.usecases.CriarFicha;
 import com.fichacatalograficaapi.fichacatalograficaapi.application.usecases.ListarFichas;
 import com.fichacatalograficaapi.fichacatalograficaapi.domain.entities.ficha.Ficha;
@@ -15,9 +16,18 @@ public class FichaController {
 
     private final ListarFichas listarFichas;
 
-    public FichaController(CriarFicha criarFicha, ListarFichas listarFichas) {
+    private final BuscarFicha buscarFicha;
+
+    public FichaController(CriarFicha criarFicha, ListarFichas listarFichas, BuscarFicha buscarFicha) {
         this.criarFicha = criarFicha;
         this.listarFichas = listarFichas;
+        this.buscarFicha = buscarFicha;
+    }
+
+    @GetMapping("/{id}")
+    public FichaDTO buscarFicha(@PathVariable Long id) {
+        Ficha fichaEncontrada = buscarFicha.buscarFicha(id);
+        return new FichaDTO(fichaEncontrada.getAutor(), fichaEncontrada.getTitulo(), fichaEncontrada.getSubtitulo(), fichaEncontrada.getCidade(), fichaEncontrada.getAno(), fichaEncontrada.getNumeroPaginaPre(), fichaEncontrada.getNumeroPaginaTotal(), fichaEncontrada.getIlustracao(), fichaEncontrada.getBibliografia(), fichaEncontrada.getAnexo(), fichaEncontrada.getMonografiaTitulacao(), fichaEncontrada.getInstituicao(), fichaEncontrada.getCurso(), fichaEncontrada.getOrientador(), fichaEncontrada.getCoorientador(), fichaEncontrada.getPalavrasChave());
     }
 
     @PostMapping

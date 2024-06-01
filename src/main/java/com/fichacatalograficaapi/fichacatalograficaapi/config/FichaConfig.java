@@ -1,6 +1,7 @@
 package com.fichacatalograficaapi.fichacatalograficaapi.config;
 
 import com.fichacatalograficaapi.fichacatalograficaapi.application.gateways.RepositorioDeFicha;
+import com.fichacatalograficaapi.fichacatalograficaapi.application.usecases.BuscarFicha;
 import com.fichacatalograficaapi.fichacatalograficaapi.application.usecases.CriarFicha;
 import com.fichacatalograficaapi.fichacatalograficaapi.application.usecases.ListarFichas;
 import com.fichacatalograficaapi.fichacatalograficaapi.infra.gateways.FichaEntityMapper;
@@ -20,6 +21,11 @@ public class FichaConfig {
     @Bean
     ListarFichas listarFichas(RepositorioDeFicha repositorioDeFicha) {
         return new ListarFichas(repositorioDeFicha);
+    }
+
+    @Bean
+    BuscarFicha buscarFicha(RepositorioDeFicha repositorioDeFicha) {
+        return new BuscarFicha(repositorioDeFicha);
     }
 
     @Bean
