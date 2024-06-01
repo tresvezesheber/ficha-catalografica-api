@@ -130,4 +130,41 @@ public class FichaTest {
                         true, true, MonografiaTitulacao.TCC_BACHAREL, "Fremen University",
                         "Chief Prophet", "Stilgar Ben Fifrawi", "Chani Kynes", "dune, sand worm"));
     }
+
+    @Test
+    public void deveCriarFichaUsandoFabricaDeFicha() {
+        FabricaDeFicha fabrica = new FabricaDeFicha();
+        Ficha ficha = fabrica.comCamposObrigatorios("Lisan al Gaib", "How to Ride a Shai-Hulud", "Arrakis", "2024",
+                "12", "64", true,
+                true, true, MonografiaTitulacao.TCC_BACHAREL, "Fremen University",
+                "Chief Prophet", "Stilgar Ben Fifrawi", "dune, sand worm, ride");
+
+        Assertions.assertEquals("Lisan al Gaib", ficha.getAutor());
+    }
+
+    @Test
+    public void deveriaCriaFichaComSubtituloUsandoFabricaDeFicha() {
+        FabricaDeFicha fabrica = new FabricaDeFicha();
+        Ficha ficha = fabrica.comCamposObrigatorios("Lisan al Gaib", "How to Ride a Shai-Hulud", "Arrakis", "2024",
+                "12", "64", true,
+                true, true, MonografiaTitulacao.TCC_BACHAREL, "Fremen University",
+                "Chief Prophet", "Stilgar Ben Fifrawi", "dune, sand worm, ride");
+
+        ficha = fabrica.incluirSubtitulo("The Big One");
+
+        Assertions.assertEquals("The Big One", ficha.getSubtitulo());
+    }
+
+    @Test
+    public void deveriaCriarFichaComCoorientadorUsandoFabricaDeFicha() {
+        FabricaDeFicha fabrica = new FabricaDeFicha();
+        Ficha ficha = fabrica.comCamposObrigatorios("Lisan al Gaib", "How to Ride a Shai-Hulud", "Arrakis", "2024",
+                "12", "64", true,
+                true, true, MonografiaTitulacao.TCC_BACHAREL, "Fremen University",
+                "Chief Prophet", "Stilgar Ben Fifrawi", "dune, sand worm, ride");
+
+        ficha = fabrica.incluirCoorientador("Chani Kynes");
+
+        Assertions.assertEquals("Chani Kynes", ficha.getCoorientador());
+    }
 }
